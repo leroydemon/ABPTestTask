@@ -20,9 +20,6 @@
   <ItemGroup>
     <Folder Include="Enum\" />
     <Folder Include="Filters\" />
-    <Folder Include="SortableFields\" />
-    <Folder Include="Specifications\" />
-    <Folder Include="Repositories\" />
   </ItemGroup>
 
 </Project>
