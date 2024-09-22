@@ -3,7 +3,7 @@ using DbLevel;
 using Domain.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
-public static class AddServiceExtentions
+public static class ScopedServiceExtentions
 {
     public static IServiceCollection AddScopedService(this IServiceCollection services)
     {

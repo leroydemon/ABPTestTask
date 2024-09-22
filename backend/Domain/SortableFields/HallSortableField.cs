@@ -1,7 +1,9 @@
 ﻿namespace Domain.SortableFields
 {
-    public enum HallSortableField
+    public enum HallSortableFields
     {
-
+        Name,
+        Price,
+        Capacity
     }
 }
