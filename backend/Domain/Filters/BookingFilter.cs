@@ -9,7 +9,7 @@ namespace Domain.Filters
         public Guid? UserId { get; set; }
         public DateTime? StartDateTime { get; set; }
         public DateTime? EndDateTime { get; set; }
-        public List<Service>? Services { get; set; }
+        public List<Equipment>? Services { get; set; }
         public bool? IsConfirmed { get; set; }
     }
 }

@@ -9,7 +9,7 @@ namespace BussinesLogic.EntitiesDto
         public Guid UserId { get; set; }
         public DateTime StartDateTime { get; set; }
         public DateTime EndDateTime { get; set; }
-        public List<Service>? Services { get; set; } = new List<Service>();
+        public List<EquipmentDto>? Services { get; set; } = new List<EquipmentDto>();
         public bool IsConfirmed { get; set; }
     }
 }

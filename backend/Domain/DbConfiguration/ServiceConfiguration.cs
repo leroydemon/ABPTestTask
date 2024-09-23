@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using Domain.Entities;
 
-public class ServiceConfiguration : IEntityTypeConfiguration<Service>
+public class ServiceConfiguration : IEntityTypeConfiguration<Equipment>
 {
-    public void Configure(EntityTypeBuilder<Service> builder)
+    public void Configure(EntityTypeBuilder<Equipment> builder)
     {
         builder
             .Property(u => u.Price)

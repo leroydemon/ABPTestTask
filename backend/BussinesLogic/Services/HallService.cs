@@ -20,9 +20,9 @@ namespace BussinesLogic.Services
         public async Task<IEnumerable<HallDto>> SearchAsync(HallFilter filter)
         {
             var spec = new HallSpecification(filter);
-            var users = await _hallRepository.ListAsync(spec);
+            var entities = await _hallRepository.ListAsync(spec);
 
-            return _mapper.Map<List<HallDto>>(users);
+            return _mapper.Map<List<HallDto>>(entities);
         }
 
         public async Task RemoveAsync(Guid Id)

@@ -10,10 +10,12 @@ namespace Domain.Data
 
         public DbSet<Hall> Halls { get; set; }
         public DbSet<Booking> Bookings { get; set; }
-        public DbSet<Service> Services {  get; set; }
+        public DbSet<Equipment> Services {  get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.ApplyConfiguration(new HallConfiguration());
             modelBuilder.ApplyConfiguration(new BookingConfiguration());
             modelBuilder.ApplyConfiguration(new ServiceConfiguration());

@@ -5,6 +5,7 @@ using DbLevel.Interfaces;
 using Domain.Entities;
 using Domain.Filters;
 using Domain.Specifications;
+using System.Text.Json;
 
 namespace BussinesLogic.Services
 {
@@ -22,14 +23,10 @@ namespace BussinesLogic.Services
 
         public async Task<decimal> CalculatePrice(BookingDto entityDto)
         {
-            decimal totalPrice = 0;
             if (entityDto.Services == null || !entityDto.Services.Any())
             {
-                throw new Exception();
+                throw new ArgumentException("Services cannot be null or empty.", nameof(entityDto.Services));
             }
-
-            TimeSpan startTime = entityDto.StartDateTime.TimeOfDay;
-            TimeSpan endTime = entityDto.EndDateTime.TimeOfDay;
 
             var hall = await _hallRepository.GetByIdAsync(entityDto.HallId);
             if (hall == null)
@@ -37,38 +34,36 @@ namespace BussinesLogic.Services
                 throw new InvalidOperationException("Hall not found.");
             }
 
+            decimal totalPrice = 0;
+            DateTime startTime = entityDto.StartDateTime;
+            DateTime endTime = entityDto.EndDateTime;
+
             while (startTime < endTime)
             {
-                // Стандартные часы (09:00 - 18:00)
-                if (startTime >= TimeSpan.FromHours(9) && startTime < TimeSpan.FromHours(18))
+                decimal hourlyRate = hall.Price;
+
+                if (startTime.TimeOfDay >= TimeSpan.FromHours(9) && startTime.TimeOfDay < TimeSpan.FromHours(18))
                 {
-                    totalPrice += hall.Price;
                 }
-                // Вечерние часы (18:00 - 23:00) - скидка 20%
-                else if (startTime >= TimeSpan.FromHours(18) && startTime < TimeSpan.FromHours(23))
+                else if (startTime.TimeOfDay >= TimeSpan.FromHours(18) && startTime.TimeOfDay < TimeSpan.FromHours(23))
                 {
-                    totalPrice += hall.Price * 0.8m; // 20% скидка
+                    hourlyRate *= 0.8m; 
                 }
-                // Утренние часы (06:00 - 09:00) - скидка 10%
-                else if (startTime >= TimeSpan.FromHours(6) && startTime < TimeSpan.FromHours(9))
+                else if (startTime.TimeOfDay >= TimeSpan.FromHours(6) && startTime.TimeOfDay < TimeSpan.FromHours(9))
                 {
-                    totalPrice += hall.Price * 0.9m; // 10% скидка
+                    hourlyRate *= 0.9m; 
                 }
-                // Пиковые часы (12:00 - 14:00) - наценка 15%
-                else if (startTime >= TimeSpan.FromHours(12) && startTime < TimeSpan.FromHours(14))
+                else if (startTime.TimeOfDay >= TimeSpan.FromHours(12) && startTime.TimeOfDay < TimeSpan.FromHours(14))
                 {
-                    totalPrice += hall.Price * 1.15m; // 15% наценка
-                }
-                else
-                {
-                    totalPrice += hall.Price;
+                    hourlyRate *= 1.15m; 
                 }
 
-                // Переход на следующий час
+                totalPrice += hourlyRate;
+
                 startTime = startTime.Add(TimeSpan.FromHours(1));
             }
 
-            entityDto.Services.ForEach(service => totalPrice += service.Price);
+            totalPrice += entityDto.Services.Sum(service => service.Price);
 
             return totalPrice;
         }
@@ -81,16 +76,25 @@ namespace BussinesLogic.Services
             }
 
             var entity = _mapper.Map<Booking>(entityDto);
-            var total = await CalculatePrice(entityDto);
+
+            entity.EquipmentsListJson = JsonSerializer.Serialize(entityDto.Services);
             await _bookingRepository.AddAsync(entity);
 
-            return total;
+            return await CalculatePrice(entityDto);
         }
 
         public async Task<IEnumerable<BookingDto>> SearchAsync(BookingFilter filter)
         {
             var spec = new BookingSpecification(filter);
             var bookings = await _bookingRepository.ListAsync(spec);
+
+            foreach (var booking in bookings)
+            {
+                if (!string.IsNullOrEmpty(booking.EquipmentsListJson))
+                {
+                    booking.Equipments = JsonSerializer.Deserialize<List<Equipment>>(booking.EquipmentsListJson);
+                }
+            }
 
             return _mapper.Map<List<BookingDto>>(bookings);
         }
@@ -104,12 +108,21 @@ namespace BussinesLogic.Services
         public async Task<BookingDto> GetByIdAsync(Guid Id)
         {
             var entity = await _bookingRepository.GetByIdAsync(Id);
+
+            if (!string.IsNullOrEmpty(entity.EquipmentsListJson))
+            {
+                entity.Equipments = JsonSerializer.Deserialize<List<Equipment>>(entity.EquipmentsListJson);
+            }
+
             return _mapper.Map<BookingDto>(entity);
         }
 
         public async Task<BookingDto> UpdateAsync(BookingDto entity)
         {
-            var updatedEntity = await _bookingRepository.UpdateAsync(_mapper.Map<Booking>(entity));
+            var bookingEntity = _mapper.Map<Booking>(entity);
+            bookingEntity.EquipmentsListJson = JsonSerializer.Serialize(entity.Services);
+
+            var updatedEntity = await _bookingRepository.UpdateAsync(bookingEntity);
 
             return _mapper.Map<BookingDto>(updatedEntity);
         }

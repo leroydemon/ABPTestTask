@@ -2,6 +2,10 @@
 using DbLevel;
 using Domain.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
+using Authorization.Interfaces;
+using Authorization.JWT;
+using BussinesLogic.Interfaces;
+using BussinesLogic.Services;
 
 public static class ScopedServiceExtentions
 {
@@ -28,6 +32,13 @@ public static class ScopedServiceExtentions
                 }
             }
         }
+
+        services.AddScoped<ITokenGeneratorService, TokenGeneratorService>();
+        services.AddScoped<IAccountService, AccountService>();
+        services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IHallService, HallService>();
+        services.AddScoped<IBookingService, BookingService>();
+        services.AddScoped<IEquipmentService, EquipmentService>();
 
         return services;
     }
