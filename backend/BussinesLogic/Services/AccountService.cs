@@ -16,7 +16,9 @@ namespace BussinesLogic.Services
         private readonly ILogger<AccountService> _logger;
         private readonly ITokenGeneratorService _tokenGenerator;
         private readonly IRepository<User> _userRepo;
-        public AccountService(UserManager<User> userManager,
+
+        public AccountService(
+            UserManager<User> userManager,
             SignInManager<User> signInManager,
             ILogger<AccountService> logger,
             ITokenGeneratorService tokenGenerator,
@@ -28,6 +30,8 @@ namespace BussinesLogic.Services
             _tokenGenerator = tokenGenerator;
             _userRepo = userRepository;
         }
+
+        // Register a new user
         public async Task<ResultBase> Register(RegisterDto request)
         {
             var user = new User
@@ -58,31 +62,45 @@ namespace BussinesLogic.Services
                 Message = $"User registration failed: {errors}"
             };
         }
+
+        // Log in an existing user
         public async Task<string> Login(LoginDto input)
         {
+            if (input == null)
+            {
+                throw new ArgumentNullException(nameof(input), "Login input cannot be null.");
+            }
+
             var user = await _userManager.FindByEmailAsync(input.Email);
             if (user == null)
             {
-                throw new Exception("Invalid login attempt.");
+                throw new Exception("Invalid login attempt."); // Consider using a more specific exception type
             }
 
             var result = await _signInManager.PasswordSignInAsync(user.UserName, input.Password, false, false);
             if (!result.Succeeded)
             {
-                throw new Exception("Invalid login attempt.");
+                throw new Exception("Invalid login attempt."); // Consider using a more specific exception type
             }
 
+            // Generate JWT token for the authenticated user
             var token = _tokenGenerator.GenerateJwtToken(user);
-
             return token;
         }
+
+        // Log out the user
         public async Task<bool> LogOut(Guid userId)
         {
+            if (userId == Guid.Empty)
+            {
+                _logger.LogWarning("Logout failed: Invalid user ID.");
+                return false; // Early return if user ID is invalid
+            }
+
             var user = await _userRepo.GetByIdAsync(userId);
             if (user == null)
             {
                 _logger.LogWarning("Logout failed: User not found.");
-
                 return false;
             }
 

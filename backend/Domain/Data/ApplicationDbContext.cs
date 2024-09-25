@@ -17,8 +17,7 @@ namespace Domain.Data
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfiguration(new HallConfiguration());
-            modelBuilder.ApplyConfiguration(new BookingConfiguration());
-            modelBuilder.ApplyConfiguration(new ServiceConfiguration());
+            modelBuilder.ApplyConfiguration(new EquipmentConfiguration());
         }
     }
 }

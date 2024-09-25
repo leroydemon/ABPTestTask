@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Domain.Entities;
 
-public class ServiceConfiguration : IEntityTypeConfiguration<Equipment>
+public class EquipmentConfiguration : IEntityTypeConfiguration<Equipment>
 {
     public void Configure(EntityTypeBuilder<Equipment> builder)
     {

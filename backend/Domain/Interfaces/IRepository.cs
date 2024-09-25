@@ -10,6 +10,7 @@ namespace DbLevel.Interfaces
         Task DeleteAsync(T entity);
         Task SaveChangesAsync();
         Task<IEnumerable<T>> ListAsync(ISpecification<T> spec);
+        Task<IEnumerable<T>> GetAllAsync();
     }
 }
 

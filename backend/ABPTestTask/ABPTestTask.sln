@@ -11,10 +11,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "..\Domain\Domain.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "..\Infrastructure\Infrastructure.csproj", "{1328E50F-0CAB-4C0B-82E5-34004E934101}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authorization", "..\Authorization\Authorization.csproj", "{36266CC2-EAAD-441C-ABA8-A6163658702E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authorization", "..\Authorization\Authorization.csproj", "{36266CC2-EAAD-441C-ABA8-A6163658702E}"
 	ProjectSection(ProjectDependencies) = postProject
 		{65F11023-708C-4DDA-B659-5CF9A207220B} = {65F11023-708C-4DDA-B659-5CF9A207220B}
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BussinesLogicTests", "..\BussinesLogicTests\BussinesLogicTests.csproj", "{60E7FA40-0B58-42AA-8807-DD0A0393B84B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,6 +44,10 @@ Global
 		{36266CC2-EAAD-441C-ABA8-A6163658702E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36266CC2-EAAD-441C-ABA8-A6163658702E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{36266CC2-EAAD-441C-ABA8-A6163658702E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60E7FA40-0B58-42AA-8807-DD0A0393B84B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60E7FA40-0B58-42AA-8807-DD0A0393B84B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60E7FA40-0B58-42AA-8807-DD0A0393B84B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60E7FA40-0B58-42AA-8807-DD0A0393B84B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

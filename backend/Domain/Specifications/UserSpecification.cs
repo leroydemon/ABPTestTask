@@ -10,30 +10,39 @@ namespace Domain.Specifications
     {
         public UserSpecification(UserFilter filter)
         {
+            // Initialize filter to a new instance if null
+            filter ??= new UserFilter();
+
+            // Apply filters based on the UserName field
             if (!string.IsNullOrEmpty(filter.UserName))
             {
                 ApplyFilter(u => u.UserName.Contains(filter.UserName));
             }
 
+            // Apply filters based on the Email field
             if (!string.IsNullOrEmpty(filter.Email))
             {
                 ApplyFilter(u => u.Email.Contains(filter.Email));
             }
 
+            // Apply sorting and pagination
             ApplySorting(filter.OrderBy, filter.Ascending);
             ApplyPaging(filter.Skip, filter.Take);
         }
 
+        // Applies sorting based on the specified criteria
         private void ApplySorting(UserSortableFields sortBy, OrderByDirection ascending)
         {
+            // Determine the sorting expression based on the specified field
             Expression<Func<User, object>> orderByExpression = sortBy switch
             {
                 UserSortableFields.UserName => u => u.UserName,
                 UserSortableFields.Email => u => u.Email,
                 UserSortableFields.Created => u => u.Created,
-                _ => u => u.Id
+                _ => u => u.Id // Default to sorting by Id
             };
 
+            // Apply the appropriate sorting order
             if (ascending == OrderByDirection.Ascending)
             {
                 ApplyOrderBy(orderByExpression);
