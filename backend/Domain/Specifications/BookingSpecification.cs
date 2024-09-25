@@ -7,8 +7,12 @@ namespace Domain.Specifications
 {
     public class BookingSpecification : SpecificationBase<Booking>
     {
-        public BookingSpecification(BookingFilter filter)
+        public BookingSpecification(BookingFilter filter, bool ablePaging = true)
         {
+            // Initialize filter to a new instance if null
+            filter ??= new BookingFilter();
+
+            // Apply filters based on the provided filter properties
             if (filter.HallId.HasValue)
             {
                 ApplyFilter(b => b.HallId == filter.HallId.Value);
@@ -19,9 +23,18 @@ namespace Domain.Specifications
                 ApplyFilter(b => b.UserId == filter.UserId.Value);
             }
 
+            // Ensure StartDateTime and EndDateTime are applied only if both are specified
             if (filter.StartDateTime.HasValue && filter.EndDateTime.HasValue)
             {
                 ApplyFilter(b => b.StartDateTime >= filter.StartDateTime.Value && b.EndDateTime <= filter.EndDateTime.Value);
+            }
+            else if (filter.StartDateTime.HasValue) // Only StartDateTime is specified
+            {
+                ApplyFilter(b => b.StartDateTime >= filter.StartDateTime.Value);
+            }
+            else if (filter.EndDateTime.HasValue) // Only EndDateTime is specified
+            {
+                ApplyFilter(b => b.EndDateTime <= filter.EndDateTime.Value);
             }
 
             if (filter.IsConfirmed.HasValue)
@@ -29,8 +42,12 @@ namespace Domain.Specifications
                 ApplyFilter(b => b.IsConfirmed == filter.IsConfirmed.Value);
             }
 
+            // Apply sorting and paging if specified
             ApplySorting(filter.OrderBy, filter.Ascending);
-            ApplyPaging(filter.Skip, filter.Take);
+            if (ablePaging)
+            {
+                ApplyPaging(filter.Skip, filter.Take);
+            }
         }
 
         private void ApplySorting(BookingSortableFields sortBy, OrderByDirection ascending)
