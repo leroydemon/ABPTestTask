@@ -1,7 +1,8 @@
-﻿using BussinesLogic.EntitiesDto;
-using BussinesLogic.Interfaces;
+﻿using ABPTestTask.Common.Booking;
+using BussinesLogic.EntitiesDto;
 using Domain.Filters;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace ABPTestTask.Controllers
 {
@@ -11,6 +12,7 @@ namespace ABPTestTask.Controllers
     {
         private readonly IBookingService _bookingService;
         private readonly ILogger<BookingController> _logger;
+        private readonly IMapper<> _mapper;
 
         public BookingController(IBookingService bookingService, ILogger<BookingController> logger)
         {
@@ -100,7 +102,7 @@ namespace ABPTestTask.Controllers
             // Update the booking entity using the service
             try
             {
-                await _bookingService.UpdateAsync(entityDto);
+                await _bookingService.UpdateAsync(_mapper.Map<Booking>(entityDto));
                 return Ok(new { Message = "Booking updated successfully." }); // Return 200 OK on successful update
             }
             catch (InvalidOperationException ex)

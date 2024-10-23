@@ -1,8 +1,8 @@
-﻿using AutoMapper;
+﻿using ABPTestTask.Common.Equipment;
+using ABPTestTask.Common.Interfaces;
+using AutoMapper;
 using BussinesLogic.EntitiesDto;
 using BussinesLogic.Services;
-using DbLevel.Interfaces;
-using Domain.Entities;
 using FluentAssertions;
 using Moq;
 using Xunit;

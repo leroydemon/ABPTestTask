@@ -3,20 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ABPTestTask", "ABPTestTask.csproj", "{B9F208F7-4AC2-4813-AC51-471830835E23}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ABPTestTask.API", "ABPTestTask.API.csproj", "{B9F208F7-4AC2-4813-AC51-471830835E23}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BussinesLogic", "..\BussinesLogic\BussinesLogic.csproj", "{EAD536FE-22C6-4209-BA1B-58CAE5D3B909}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ABPTestTask.BussinesLogicTests", "..\BussinesLogicTests\ABPTestTask.BussinesLogicTests.csproj", "{60E7FA40-0B58-42AA-8807-DD0A0393B84B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "..\Domain\Domain.csproj", "{65F11023-708C-4DDA-B659-5CF9A207220B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ABPTestTask.DAL", "..\ABPTestTask.Persistence\ABPTestTask.DAL.csproj", "{CE89AE96-B6BA-4F59-8272-BFB4AF61563C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "..\Infrastructure\Infrastructure.csproj", "{1328E50F-0CAB-4C0B-82E5-34004E934101}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ABPTestTask.Authorization", "..\ABPTestTask.Authorization\ABPTestTask.Authorization.csproj", "{8EA8A2C4-4BDE-4426-BE78-3DCFD7432385}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authorization", "..\Authorization\Authorization.csproj", "{36266CC2-EAAD-441C-ABA8-A6163658702E}"
-	ProjectSection(ProjectDependencies) = postProject
-		{65F11023-708C-4DDA-B659-5CF9A207220B} = {65F11023-708C-4DDA-B659-5CF9A207220B}
-	EndProjectSection
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ABPTestTask.BBL", "..\ABPTestTask.BLL\ABPTestTask.BBL.csproj", "{59B00A8C-D6AD-429E-B239-23309FC3D8C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BussinesLogicTests", "..\BussinesLogicTests\BussinesLogicTests.csproj", "{60E7FA40-0B58-42AA-8807-DD0A0393B84B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ABPTestTask.Common", "..\ABPTestTask.Common\ABPTestTask.Common.csproj", "{25EA4E95-4F40-487B-A5AF-A8DD629E7638}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ABPTestTask.Infrastructure", "..\ABPTestTask.Infrastructure\ABPTestTask.Infrastructure.csproj", "{A4935014-7430-474C-8A9C-DE9136D3D0EA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,26 +27,30 @@ Global
 		{B9F208F7-4AC2-4813-AC51-471830835E23}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B9F208F7-4AC2-4813-AC51-471830835E23}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B9F208F7-4AC2-4813-AC51-471830835E23}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EAD536FE-22C6-4209-BA1B-58CAE5D3B909}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EAD536FE-22C6-4209-BA1B-58CAE5D3B909}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EAD536FE-22C6-4209-BA1B-58CAE5D3B909}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EAD536FE-22C6-4209-BA1B-58CAE5D3B909}.Release|Any CPU.Build.0 = Release|Any CPU
-		{65F11023-708C-4DDA-B659-5CF9A207220B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{65F11023-708C-4DDA-B659-5CF9A207220B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{65F11023-708C-4DDA-B659-5CF9A207220B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{65F11023-708C-4DDA-B659-5CF9A207220B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1328E50F-0CAB-4C0B-82E5-34004E934101}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1328E50F-0CAB-4C0B-82E5-34004E934101}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1328E50F-0CAB-4C0B-82E5-34004E934101}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1328E50F-0CAB-4C0B-82E5-34004E934101}.Release|Any CPU.Build.0 = Release|Any CPU
-		{36266CC2-EAAD-441C-ABA8-A6163658702E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{36266CC2-EAAD-441C-ABA8-A6163658702E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{36266CC2-EAAD-441C-ABA8-A6163658702E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{36266CC2-EAAD-441C-ABA8-A6163658702E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{60E7FA40-0B58-42AA-8807-DD0A0393B84B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{60E7FA40-0B58-42AA-8807-DD0A0393B84B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60E7FA40-0B58-42AA-8807-DD0A0393B84B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60E7FA40-0B58-42AA-8807-DD0A0393B84B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE89AE96-B6BA-4F59-8272-BFB4AF61563C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE89AE96-B6BA-4F59-8272-BFB4AF61563C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE89AE96-B6BA-4F59-8272-BFB4AF61563C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE89AE96-B6BA-4F59-8272-BFB4AF61563C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8EA8A2C4-4BDE-4426-BE78-3DCFD7432385}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EA8A2C4-4BDE-4426-BE78-3DCFD7432385}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EA8A2C4-4BDE-4426-BE78-3DCFD7432385}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EA8A2C4-4BDE-4426-BE78-3DCFD7432385}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59B00A8C-D6AD-429E-B239-23309FC3D8C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59B00A8C-D6AD-429E-B239-23309FC3D8C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59B00A8C-D6AD-429E-B239-23309FC3D8C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59B00A8C-D6AD-429E-B239-23309FC3D8C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25EA4E95-4F40-487B-A5AF-A8DD629E7638}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25EA4E95-4F40-487B-A5AF-A8DD629E7638}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25EA4E95-4F40-487B-A5AF-A8DD629E7638}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25EA4E95-4F40-487B-A5AF-A8DD629E7638}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4935014-7430-474C-8A9C-DE9136D3D0EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4935014-7430-474C-8A9C-DE9136D3D0EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4935014-7430-474C-8A9C-DE9136D3D0EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4935014-7430-474C-8A9C-DE9136D3D0EA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

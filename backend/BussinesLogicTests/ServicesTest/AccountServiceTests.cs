@@ -1,8 +1,8 @@
-﻿using Authorization.Interfaces;
+﻿using ABPTestTask.Common.Interfaces;
+using ABPTestTask.Common.User;
+using Authorization.Interfaces;
 using BussinesLogic.EntitiesDto;
 using BussinesLogic.Services;
-using DbLevel.Interfaces;
-using Domain.Entities;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;

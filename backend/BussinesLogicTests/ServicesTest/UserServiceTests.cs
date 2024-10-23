@@ -1,8 +1,8 @@
-﻿using AutoMapper;
+﻿using ABPTestTask.Common.Interfaces;
+using ABPTestTask.Common.User;
+using AutoMapper;
 using BussinesLogic.EntitiesDto;
 using BussinesLogic.Services;
-using DbLevel.Interfaces;
-using Domain.Entities;
 using Domain.Filters;
 using Domain.Specifications;
 using FluentAssertions;

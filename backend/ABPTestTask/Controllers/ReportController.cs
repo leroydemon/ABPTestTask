@@ -1,5 +1,6 @@
-﻿using BussinesLogic.Enums;
-using BussinesLogic.Interfaces;
+﻿using ABPTestTask.Common.Enum;
+using ABPTestTask.Common.ExporterInterfaces;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ABPTestTask.Controllers
@@ -10,16 +11,18 @@ namespace ABPTestTask.Controllers
     {
         private readonly IReportService _reportService;
         private readonly ILogger<ReportController> _logger;
+        private readonly IMapper _mapper;
 
-        public ReportController(IReportService reportService, ILogger<ReportController> logger)
+        public ReportController(IReportService reportService, ILogger<ReportController> logger, IMapper mapper)
         {
             _reportService = reportService;
             _logger = logger;
+            _mapper = mapper;
         }
 
         // Get hall usage report based on date range
         [HttpGet("hall-usage")]
-        public async Task<ActionResult<List<HallUsageReport>>> GetHallUsageReport([FromQuery] ReportRequest reportRequest)
+        public async Task<ActionResult<List<HallUsageReportDto>>> GetHallUsageReport([FromQuery] ReportDto reportRequest)
         {
             if (reportRequest.StartDate > reportRequest.EndDate)
             {
@@ -29,8 +32,9 @@ namespace ABPTestTask.Controllers
 
             try
             {
-                var report = await _reportService.GetHallUsageReport(reportRequest);
-                return Ok(report);
+                var report = await _reportService.GetHallUsageReport(_mapper.Map<Report>(reportRequest));
+
+                return Ok(_mapper.Map<ReportDto>(report));
             }
             catch (Exception ex)
             {
@@ -41,7 +45,7 @@ namespace ABPTestTask.Controllers
 
         // Export hall usage report to a specified file format
         [HttpGet("hall-usage/export")]
-        public async Task<ActionResult<string>> ExportHallUsageReportToFile([FromQuery] ReportRequest reportRequest, [FromQuery] ReportFormat format = ReportFormat.Csv)
+        public async Task<ActionResult<string>> ExportHallUsageReportToFile([FromQuery] ReportDto reportRequest, [FromQuery] ReportFormat format = ReportFormat.Csv)
         {
             if (reportRequest.StartDate > reportRequest.EndDate)
             {
@@ -51,7 +55,7 @@ namespace ABPTestTask.Controllers
 
             try
             {
-                var filePath = await _reportService.ExportHallUsageReportToFile(reportRequest, format);
+                var filePath = await _reportService.ExportHallUsageReportToFile(_mapper.Map<Report>(reportRequest), format);
                 return Ok(new { FilePath = filePath });
             }
             catch (Exception ex)

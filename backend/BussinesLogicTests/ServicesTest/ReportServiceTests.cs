@@ -1,8 +1,8 @@
-﻿using BussinesLogic.Enums;
-using BussinesLogic.Interfaces;
+﻿using ABPTestTask.Common.ExporterInterfaces;
+using ABPTestTask.Common.Hall;
+using ABPTestTask.Common.Interfaces;
+using BussinesLogic.Enums;
 using BussinesLogic.Services;
-using DbLevel.Interfaces;
-using Domain.Entities;
 using Domain.Specifications;
 using FluentAssertions;
 using Moq;

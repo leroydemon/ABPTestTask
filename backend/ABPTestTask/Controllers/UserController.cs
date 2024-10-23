@@ -1,8 +1,9 @@
-﻿using BussinesLogic.EntitiesDto;
-using BussinesLogic.Interfaces;
-using Domain.Entities;
+﻿using ABPTestTask.Common.User;
+using AutoMapper;
+using BussinesLogic.EntitiesDto;
 using Domain.Filters;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace ABPTestTask.Controllers
 {
@@ -12,11 +13,13 @@ namespace ABPTestTask.Controllers
     {
         private readonly IUserService _userService;
         private readonly ILogger<UserController> _logger;
+        private readonly IMapper _mapper;
 
-        public UserController(IUserService userService, ILogger<UserController> logger)
+        public UserController(IUserService userService, ILogger<UserController> logger, IMapper mapper)
         {
             _userService = userService;
             _logger = logger;
+            _mapper = mapper;
         }
 
         // Search for users based on filter criteria
@@ -26,7 +29,7 @@ namespace ABPTestTask.Controllers
             try
             {
                 var users = await _userService.SearchAsync(filter);
-                return Ok(users);
+                return Ok(_mapper.Map<IEnumerable<User>>(users));
             }
             catch (Exception ex)
             {
@@ -63,7 +66,8 @@ namespace ABPTestTask.Controllers
             try
             {
                 var user = await _userService.GetByIdAsync(id);
-                return Ok(user);
+
+                return Ok(_mapper.Map<UserDto>(user));
             }
             catch (KeyNotFoundException)
             {
@@ -88,7 +92,7 @@ namespace ABPTestTask.Controllers
 
             try
             {
-                await _userService.UpdateAsync(userDto);
+                await _userService.UpdateAsync(_mapper.Map<User>(userDto));
                 return Ok(new { Message = "User updated successfully." });
             }
             catch (KeyNotFoundException)

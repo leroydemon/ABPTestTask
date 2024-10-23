@@ -1,8 +1,8 @@
-﻿using AutoMapper;
+﻿using ABPTestTask.Common.Hall;
+using ABPTestTask.Common.Interfaces;
+using AutoMapper;
 using BussinesLogic.EntitiesDto;
 using BussinesLogic.Services;
-using DbLevel.Interfaces;
-using Domain.Entities;
 using FakeItEasy;
 using FluentAssertions;
 using Moq;

@@ -1,5 +1,8 @@
-﻿using BussinesLogic.EntitiesDto;
-using BussinesLogic.Interfaces;
+﻿using ABPTestTask.BBL.Requests;
+using ABPTestTask.Common.Hall;
+using AutoMapper;
+using BussinesLogic.EntitiesDto;
+using Domain.Entities;
 using Domain.Filters;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,11 +14,13 @@ namespace ABPTestTask.Controllers
     {
         private readonly IHallService _hallService;
         private readonly ILogger<HallController> _logger;
+        private readonly IMapper _mapper;
 
-        public HallController(IHallService hallService, ILogger<HallController> logger)
+        public HallController(IHallService hallService, ILogger<HallController> logger, IMapper mapper)
         {
             _hallService = hallService;
             _logger = logger;
+            _mapper = mapper;
         }
 
         // Search for halls based on provided filter criteria
@@ -23,7 +28,8 @@ namespace ABPTestTask.Controllers
         public async Task<ActionResult<IEnumerable<HallDto>>> SearchAsync([FromQuery] HallFilter filter)
         {
             var entities = await _hallService.SearchAsync(filter);
-            return Ok(entities);
+
+            return Ok(_mapper.Map<HallDto>(entities));
         }
 
         // Remove a hall by ID
@@ -57,14 +63,16 @@ namespace ABPTestTask.Controllers
                 return NotFound(new { Message = "Hall not found." }); // Return 404 if the hall was not found
             }
 
-            return Ok(entity);
+            return Ok(_mapper.Map<Hall>(entity));
         }
 
         // Update hall information
         [HttpPut]
         public async Task<IActionResult> UpdateAsync([FromBody] HallDto entityDto)
         {
-            await _hallService.UpdateAsync(entityDto);
+            var entity = _mapper.Map<Hall>(entityDto);
+
+            await _hallService.UpdateAsync(entity);
             return Ok(new { Message = "Hall updated successfully." });
         }
 
@@ -72,8 +80,10 @@ namespace ABPTestTask.Controllers
         [HttpPost]
         public async Task<IActionResult> AddAsync([FromBody] HallDto entityDto)
         {
-            var entity = await _hallService.AddAsync(entityDto);
-            return CreatedAtAction(nameof(GetByIdAsync), new { id = entity.Id }, entity); // Return 201 Created with the resource's location
+            var entity = _mapper.Map<Hall>(entityDto);
+
+            var entityAdded = await _hallService.AddAsync(entity);
+            return CreatedAtAction(nameof(GetByIdAsync), new { id = entity.Id }, _mapper.Map<Hall>(entityAdded)); // Return 201 Created with the resource's location
         }
 
         // Search for available halls based on specified criteria

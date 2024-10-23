@@ -1,5 +1,7 @@
-﻿using BussinesLogic.EntitiesDto;
-using BussinesLogic.Interfaces;
+﻿
+using ABPTestTask.Common.Equipments;
+using AutoMapper;
+using BussinesLogic.EntitiesDto;
 using Domain.Filters;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,11 +13,13 @@ namespace ABPTestTask.Controllers
     {
         private readonly IEquipmentService _equipmentService;
         private readonly ILogger<EquipmentController> _logger;
+        private readonly IMapper _mapper;
 
-        public EquipmentController(IEquipmentService equipmentService, ILogger<EquipmentController> logger)
+        public EquipmentController(IEquipmentService equipmentService, ILogger<EquipmentController> logger, IMapper mapper)
         {
             _equipmentService = equipmentService;
             _logger = logger;
+            _mapper = mapper;
         }
 
         // Search for equipment based on filter criteria
@@ -29,7 +33,7 @@ namespace ABPTestTask.Controllers
                 return NotFound(new { Message = "No equipment found matching the specified criteria." });
             }
 
-            return Ok(entities);
+            return Ok(_mapper.Map<EquipmentDto>(entities));
         }
 
         // Remove equipment by ID
@@ -68,7 +72,7 @@ namespace ABPTestTask.Controllers
                 return NotFound(new { Message = $"Equipment with ID {id} not found." });
             }
 
-            return Ok(entity);
+            return Ok(_mapper.Map<EquipmentDto>(entity));
         }
 
         // Update equipment details
@@ -80,9 +84,9 @@ namespace ABPTestTask.Controllers
                 return BadRequest(new { Message = "Equipment data must be provided." });
             }
 
-            var updatedEntity = await _equipmentService.UpdateAsync(entityDto);
+            var updatedEntity = await _equipmentService.UpdateAsync(_mapper.Map<Equipment>(entityDto));
 
-            return Ok(updatedEntity); // Return updated equipment
+            return Ok(_mapper.Map<EquipmentDto>(updatedEntity)); // Return updated equipment
         }
 
         // Add new equipment
@@ -94,9 +98,9 @@ namespace ABPTestTask.Controllers
                 return BadRequest(new { Message = "Equipment data must be provided." });
             }
 
-            var entity = await _equipmentService.AddAsync(entityDto);
+            var entity = await _equipmentService.AddAsync(_mapper.Map<Equipment>(entityDto));
 
-            return CreatedAtAction(nameof(GetByIdAsync), new { id = entity.Id }, entity); // 201 Created
+            return CreatedAtAction(nameof(GetByIdAsync), new { id = entity.Id }, _mapper.Map<EquipmentDto>(entity)); // 201 Created
         }
     }
 
