@@ -7,7 +7,7 @@ namespace ABPTestTask.BBL.Specifications
 {
     public class AvailableHallsSpecification : SpecificationBase<HallEntity>
     {
-        public AvailableHallsSpecification(HallAvailabilityRequest request)
+        public AvailableHallsSpecification(IHallAvailabilityRequest request)
         {
             // Filter halls based on the requested capacity
             ApplyFilter(h => h.Capacity >= request.Capacity);

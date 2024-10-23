@@ -69,7 +69,7 @@ namespace Authorization
         public static IServiceCollection AddCustomIdentity(this IServiceCollection services)
         {
             services
-                .AddIdentity<User, Role>(options =>
+                .AddIdentity<User, IdentityRole<Guid>>(options =>
                 {
                     options.Password.RequireDigit = true;
                     options.Password.RequiredLength = 8;

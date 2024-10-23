@@ -1,4 +1,5 @@
-﻿using ABPTestTask.Common.Booking;
+﻿using ABPTestTask.Common.Bookings;
+using ABPTestTask.Common.Filters;
 using ABPTestTask.DAL.Entities;
 using Domain.Enum;
 using Domain.Filters;
@@ -9,7 +10,7 @@ namespace Domain.Specifications
 {
     public class BookingSpecification : SpecificationBase<BookingEntity>
     {
-        public BookingSpecification(BookingFilter filter, bool ablePaging = true)
+        public BookingSpecification(IBookingFilter filter, bool ablePaging = true)
         {
             // Initialize filter to a new instance if null
             filter ??= new BookingFilter();
@@ -54,7 +55,7 @@ namespace Domain.Specifications
 
         private void ApplySorting(BookingSortableFields sortBy, OrderByDirection ascending)
         {
-            Expression<Func<Booking, object>> orderByExpression = sortBy switch
+            Expression<Func<BookingEntity, object>> orderByExpression = sortBy switch
             {
                 BookingSortableFields.UserId => b => b.UserId,
                 BookingSortableFields.HallId => b => b.HallId,

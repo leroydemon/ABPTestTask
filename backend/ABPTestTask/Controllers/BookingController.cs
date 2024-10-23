@@ -1,4 +1,5 @@
-﻿using ABPTestTask.Common.Booking;
+﻿using ABPTestTask.Common.Bookings;
+using AutoMapper;
 using BussinesLogic.EntitiesDto;
 using Domain.Filters;
 using Microsoft.AspNetCore.Mvc;
@@ -12,7 +13,7 @@ namespace ABPTestTask.Controllers
     {
         private readonly IBookingService _bookingService;
         private readonly ILogger<BookingController> _logger;
-        private readonly IMapper<> _mapper;
+        private readonly IMapper _mapper;
 
         public BookingController(IBookingService bookingService, ILogger<BookingController> logger)
         {
@@ -127,8 +128,10 @@ namespace ABPTestTask.Controllers
 
             try
             {
+                
+
                 // Calculate the price asynchronously
-                var value = await _bookingService.CalculatePrice(entityDto);
+                var value = await _bookingService.CalculatePrice(_mapper.Map<Booking>(entityDto));
                 return Ok(new { TotalPrice = value }); // Return the calculated price in the response
             }
             catch (Exception ex)
@@ -150,7 +153,7 @@ namespace ABPTestTask.Controllers
             try
             {
                 // Call the service to book the hall and calculate the total price
-                var totalPrice = await _bookingService.BookingHall(entityDto);
+                var totalPrice = await _bookingService.BookingHall(_mapper.Map<Booking>(entityDto));
 
                 // Return confirmation of booking with the total price
                 return Ok(new

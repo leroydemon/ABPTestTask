@@ -1,4 +1,7 @@
-﻿using BussinesLogic.EntitiesDto;
+﻿using ABPTestTask.Common.Bookings;
+using AutoMapper;
+using Azure.Core;
+using BussinesLogic.EntitiesDto;
 using BussinesLogic.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -13,11 +16,13 @@ namespace ABPTestTask.Controllers
     {
         private readonly IAccountService _accountService;
         private readonly ILogger<AccountController> _logger;
+        private readonly IMapper _mapper;
 
-        public AccountController(IAccountService accountService, ILogger<AccountController> logger)
+        public AccountController(IAccountService accountService, ILogger<AccountController> logger, IMapper mapper)
         {
             _accountService = accountService;
             _logger = logger;
+            _mapper = mapper;
         }
 
         // Register a new user
@@ -29,7 +34,7 @@ namespace ABPTestTask.Controllers
                 return BadRequest(new { Message = "Invalid registration request." }); // Return bad request if the request is null
             }
 
-            var result = await _accountService.Register(request);
+            var result = await _accountService.Register(_mapper.Map<Register>(request));
 
             if (result.Success)
             {
@@ -50,7 +55,7 @@ namespace ABPTestTask.Controllers
 
             _logger.LogInformation("Attempting to log in.");
 
-            var token = await _accountService.Login(input);
+            var token = await _accountService.Login(_mapper.Map<Login>(input));
             if (token != null)
             {
                 _logger.LogInformation("User logged in successfully.");

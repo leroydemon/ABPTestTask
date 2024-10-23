@@ -1,4 +1,5 @@
-﻿using ABPTestTask.Common.Interfaces;
+﻿using ABPTestTask.Common.Filters;
+using ABPTestTask.Common.Interfaces;
 using ABPTestTask.Common.User;
 using AutoMapper;
 using Domain.Filters;
@@ -16,12 +17,12 @@ namespace BussinesLogic.Services
             _userRepository = userRepository;
             _mapper = mapper;
         }
-        public async Task<IEnumerable<User>> SearchAsync(UserFilter filter)
+        public async Task<IEnumerable<User>> SearchAsync(IUserFilter filter)
         {
             var spec = new UserSpecification(filter);
             var users = await _userRepository.ListAsync(spec);
 
-            return _mapper.Map<List<User>>(users);
+            return _mapper.Map<IEnumerable<User>>(users);
         }
 
         public async Task RemoveAsync(Guid userId)
@@ -63,7 +64,7 @@ namespace BussinesLogic.Services
                 throw new ArgumentNullException(nameof(userDto)); 
             }
 
-            var user = _mapper.Map<User>(userDto);
+            var user = _mapper.Map<UserEntity>(userDto);
             var updatedUser = await _userRepository.UpdateAsync(user);
 
             return _mapper.Map<User>(updatedUser);
@@ -76,7 +77,7 @@ namespace BussinesLogic.Services
                 throw new ArgumentNullException(nameof(userDto)); 
             }
 
-            var user = _mapper.Map<User>(userDto);
+            var user = _mapper.Map<UserEntity>(userDto);
             var addedUser = await _userRepository.AddAsync(user);
 
             return _mapper.Map<User>(addedUser);

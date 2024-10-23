@@ -1,4 +1,6 @@
-﻿namespace BussinesLogic.EntitiesDto
+﻿using ABPTestTask.Common.Bookings;
+
+namespace BussinesLogic.EntitiesDto
 {
     public class HallDto
     {

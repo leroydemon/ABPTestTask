@@ -1,4 +1,5 @@
 ﻿using ABPTestTask.Common.Equipment;
+using ABPTestTask.Common.Equipments;
 using AutoMapper;
 using BussinesLogic.EntitiesDto;
 

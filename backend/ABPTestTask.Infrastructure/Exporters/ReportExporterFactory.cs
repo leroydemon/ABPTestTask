@@ -1,5 +1,5 @@
-﻿using ABPTestTask.Common.ExporterInterfaces;
-using Infrastucture.ReportFormat;
+﻿using ABPTestTask.Common.Enum;
+using ABPTestTask.Common.ExporterInterfaces;
 
 namespace BussinesLogic.Exporters
 {

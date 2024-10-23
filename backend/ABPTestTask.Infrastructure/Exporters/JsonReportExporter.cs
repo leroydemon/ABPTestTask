@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 using System.Text;
 using ABPTestTask.Common.ExporterInterfaces;
-using ABPTestTask.Common.HallUsageReport;
+using ABPTestTask.Common.HallUsageReports;
 
 namespace BussinesLogic.Exporters
 {

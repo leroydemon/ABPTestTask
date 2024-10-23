@@ -1,5 +1,4 @@
-﻿using ABPTestTask.Common.Booking;
-using AutoMapper;
+﻿using AutoMapper;
 using Domain.Filters;
 using Domain.Specifications;
 using System.Text.Json;
@@ -7,6 +6,8 @@ using ABPTestTask.Common.Interfaces;
 using ABPTestTask.DAL.Entities;
 using ABPTestTask.Common.Hall;
 using ABPTestTask.Common.Equipments;
+using ABPTestTask.Common.Bookings;
+using ABPTestTask.Common.Filters;
 
 namespace BussinesLogic.Services
 {
@@ -89,7 +90,7 @@ namespace BussinesLogic.Services
             return totalPrice; // Return total price
         }
 
-        public async Task<IEnumerable<Booking>> SearchAsync(BookingFilter filter)
+        public async Task<IEnumerable<Booking>> SearchAsync(IBookingFilter filter)
         {
             var spec = new BookingSpecification(filter); // Create a new specification for filtering
             var bookings = await _bookingRepository.ListAsync(spec); // Get bookings based on the specification

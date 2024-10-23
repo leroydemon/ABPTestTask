@@ -1,4 +1,5 @@
-﻿using ABPTestTask.Common.Hall;
+﻿using ABPTestTask.Common.Filters;
+using ABPTestTask.Common.Hall;
 using Domain.Enum;
 using Domain.Filters;
 using Domain.SortableFields;
@@ -8,7 +9,7 @@ namespace Domain.Specifications
 {
     public class HallSpecification : SpecificationBase<HallEntity>
     {
-        public HallSpecification(HallFilter filter)
+        public HallSpecification(IHallFilter filter)
         {
             // Initialize filter to a new instance if null
             filter ??= new HallFilter();

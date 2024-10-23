@@ -1,12 +1,10 @@
-﻿
-using Domain.Filters;
-using Domain.SortableFields;
+﻿using ABPTestTask.Common.Filters;
 
 namespace ABPTestTask.Common.Equipments
 {
     public interface IEquipmentService
     {
-        Task<IEnumerable<Equipment>> SearchAsync(IFilterBase<EquipmentSortableFields> filter);
+        Task<IEnumerable<Equipment>> SearchAsync(IEquipmentFilter filter);
         Task RemoveAsync(Guid Id);
         Task<Equipment> GetByIdAsync(Guid Id);
         Task<Equipment> UpdateAsync(Equipment EquipmentDto);

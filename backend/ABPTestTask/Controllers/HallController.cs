@@ -88,7 +88,7 @@ namespace ABPTestTask.Controllers
 
         // Search for available halls based on specified criteria
         [HttpGet("list")]
-        public async Task<IActionResult> SearchAvailableHallsAsync([FromQuery] HallAvailabilityRequest request)
+        public async Task<IActionResult> SearchAvailableHallsAsync([FromQuery] IHallAvailabilityRequest request)
         {
             var entities = await _hallService.SearchAvailableHallsAsync(request);
             return Ok(entities);

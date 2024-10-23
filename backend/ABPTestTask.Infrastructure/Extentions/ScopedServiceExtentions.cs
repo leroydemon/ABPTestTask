@@ -7,10 +7,10 @@ using BussinesLogic.Services;
 using BussinesLogic.Exporters;
 using ABPTestTask.Common.ExporterInterfaces;
 using ABPTestTask.Common.User;
-using ABPTestTask.Common.Booking;
 using ABPTestTask.Common.Hall;
-using ABPTestTask.Common.Equipment;
 using ABPTestTask.Common.Interfaces;
+using ABPTestTask.Common.Bookings;
+using ABPTestTask.Common.Equipments;
 
 public static class ScopedServiceExtentions
 {

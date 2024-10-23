@@ -1,6 +1,6 @@
 ﻿namespace ABPTestTask.BBL.Requests
 {
-    public class HallAvailabilityRequest
+    public interface IHallAvailabilityRequest
     {
         public DateTime StartDateTime { get; set; }
         public DateTime EndDateTime { get; set; }

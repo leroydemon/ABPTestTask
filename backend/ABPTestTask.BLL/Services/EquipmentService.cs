@@ -1,5 +1,6 @@
 ﻿using ABPTestTask.Common.Equipment;
 using ABPTestTask.Common.Equipments;
+using ABPTestTask.Common.Filters;
 using ABPTestTask.Common.Interfaces;
 using AutoMapper;
 using Domain.Filters;
@@ -16,7 +17,7 @@ namespace BussinesLogic.Services
             _equipmentRepository = equipmentRepository;
             _mapper = mapper;
         }
-        public async Task<IEnumerable<Equipment>> SearchAsync(EquipmentFilter filter)
+        public async Task<IEnumerable<Equipment>> SearchAsync(IEquipmentFilter filter)
         {
             // Create a specification for searching equipment based on the filter
             var spec = new EquipmentSpecification(filter);

@@ -1,5 +1,5 @@
 ﻿using ABPTestTask.Common.ExporterInterfaces;
-using ABPTestTask.Common.HallUsageReport;
+using ABPTestTask.Common.HallUsageReports;
 using CsvHelper;
 using System.Globalization;
 using System.Text;

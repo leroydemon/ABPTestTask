@@ -1,4 +1,5 @@
 ﻿using ABPTestTask.Common.Equipment;
+using ABPTestTask.Common.Filters;
 using Domain.Enum;
 using Domain.Filters;
 using Domain.SortableFields;
@@ -8,7 +9,7 @@ namespace Domain.Specifications
 {
     public class EquipmentSpecification : SpecificationBase<EquipmentEntity>
     {
-        public EquipmentSpecification(EquipmentFilter filter)
+        public EquipmentSpecification(IEquipmentFilter filter)
         {
             // Initialize filter to a new instance if null
             filter ??= new EquipmentFilter();

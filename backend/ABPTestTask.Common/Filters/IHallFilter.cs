@@ -1,9 +1,9 @@
-﻿using ABPTestTask.Common.Filters;
+﻿using Domain.Filters;
 using Domain.SortableFields;
 
-namespace Domain.Filters
+namespace ABPTestTask.Common.Filters
 {
-    public class HallFilter : FilterBase<HallSortableFields>, IHallFilter
+    public interface IHallFilter : IFilterBase<HallSortableFields>
     {
         public string? Name { get; set; }
         public decimal? Price { get; set; }

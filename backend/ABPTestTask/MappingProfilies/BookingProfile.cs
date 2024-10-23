@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using ABPTestTask.Common.Bookings;
+using AutoMapper;
 using BussinesLogic.EntitiesDto;
 
 public class BookingProfile : Profile

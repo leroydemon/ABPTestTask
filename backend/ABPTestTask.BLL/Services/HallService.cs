@@ -1,5 +1,6 @@
 ﻿using ABPTestTask.BBL.Requests;
 using ABPTestTask.BBL.Specifications;
+using ABPTestTask.Common.Filters;
 using ABPTestTask.Common.Hall;
 using ABPTestTask.Common.Interfaces;
 using AutoMapper;
@@ -20,7 +21,7 @@ namespace BussinesLogic.Services
             _mapper = mapper;
             _logger = logger;
         }
-        public async Task<IEnumerable<Hall>> SearchAsync(HallFilter filter)
+        public async Task<IEnumerable<Hall>> SearchAsync(IHallFilter filter)
         {
             try
             {
@@ -123,13 +124,13 @@ namespace BussinesLogic.Services
             }
         }
 
-        public async Task<IEnumerable<Hall>> SearchAvailableHallsAsync(HallAvailabilityRequest request)
+        public async Task<IEnumerable<Hall>> SearchAvailableHallsAsync(IHallAvailabilityRequest request)
         {
             try
             {
                 var spec = new AvailableHallsSpecification(request);
                 var halls = await _hallRepository.ListAsync(spec);
-                return _mapper.Map<List<Hall>>(halls);
+                return _mapper.Map<IEnumerable<Hall>>(halls);
             }
             catch (Exception ex)
             {

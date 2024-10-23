@@ -1,4 +1,5 @@
-﻿using ABPTestTask.Common.User;
+﻿using ABPTestTask.Common.Filters;
+using ABPTestTask.Common.User;
 using Domain.Enum;
 using Domain.Filters;
 using Domain.SortableFields;
@@ -6,9 +7,9 @@ using System.Linq.Expressions;
 
 namespace Domain.Specifications
 {
-    public class UserSpecification : SpecificationBase<User>
+    public class UserSpecification : SpecificationBase<UserEntity>
     {
-        public UserSpecification(UserFilter filter)
+        public UserSpecification(IUserFilter filter)
         {
             // Initialize filter to a new instance if null
             filter ??= new UserFilter();
@@ -34,7 +35,7 @@ namespace Domain.Specifications
         private void ApplySorting(UserSortableFields sortBy, OrderByDirection ascending)
         {
             // Determine the sorting expression based on the specified field
-            Expression<Func<User, object>> orderByExpression = sortBy switch
+            Expression<Func<UserEntity, object>> orderByExpression = sortBy switch
             {
                 UserSortableFields.UserName => u => u.UserName,
                 UserSortableFields.Email => u => u.Email,

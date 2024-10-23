@@ -1,10 +1,10 @@
 ﻿using ABPTestTask.Common.Equipments;
-using ABPTestTask.Common.Filters;
+using Domain.Filters;
 using Domain.SortableFields;
 
-namespace Domain.Filters
+namespace ABPTestTask.Common.Filters
 {
-    public class BookingFilter : FilterBase<BookingSortableFields>, IBookingFilter
+    public interface IBookingFilter : IFilterBase<BookingSortableFields>
     {
         public Guid? HallId { get; set; }
         public Guid? UserId { get; set; }

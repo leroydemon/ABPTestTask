@@ -1,9 +1,9 @@
-﻿using ABPTestTask.Common.ExporterInterfaces;
+﻿using ABPTestTask.Common.Enum;
+using ABPTestTask.Common.ExporterInterfaces;
 using ABPTestTask.Common.Hall;
-using ABPTestTask.Common.HallUsageReport;
+using ABPTestTask.Common.HallUsageReports;
 using ABPTestTask.Common.Interfaces;
 using ABPTestTask.DAL.Entities;
-using BussinesLogic.Enums;
 using Domain.Specifications;
 
 
